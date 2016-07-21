@@ -3,6 +3,14 @@ Google Analytics API v4 Symfony bundle
 
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/da6423cf-b198-402a-8d23-e82e7833f9f6/big.png)](https://insight.sensiolabs.com/projects/da6423cf-b198-402a-8d23-e82e7833f9f6)
 
+[![Latest Stable Version](https://poser.pugx.org/mediafigaro/google-analytics-api-symfony/v/stable)](https://packagist.org/packages/mediafigaro/google-analytics-api-symfony)
+[![Total Downloads](https://poser.pugx.org/mediafigaro/google-analytics-api-symfony/downloads)](https://packagist.org/packages/mediafigaro/google-analytics-api-symfony)
+[![Latest Unstable Version](https://poser.pugx.org/mediafigaro/google-analytics-api-symfony/v/unstable)](https://packagist.org/packages/mediafigaro/google-analytics-api-symfony)
+[![License](https://poser.pugx.org/mediafigaro/google-analytics-api-symfony/license)](https://packagist.org/packages/mediafigaro/google-analytics-api-symfony)
+[![Monthly Downloads](https://poser.pugx.org/mediafigaro/google-analytics-api-symfony/d/monthly)](https://packagist.org/packages/mediafigaro/google-analytics-api-symfony)
+[![Daily Downloads](https://poser.pugx.org/mediafigaro/google-analytics-api-symfony/d/daily)](https://packagist.org/packages/mediafigaro/google-analytics-api-symfony)
+[![composer.lock](https://poser.pugx.org/mediafigaro/google-analytics-api-symfony/composerlock)](https://packagist.org/packages/mediafigaro/google-analytics-api-symfony)
+
 # use
 
 At MEDIA.figaro http://media.figaro.fr, the advertising department of the french newspaper Le Figaro and part of the Figaro Group (CCM Benchmark), we use this bundle to monitor our digital platforms with Google Analytics. 
@@ -11,7 +19,7 @@ It's a simple package that wraps the Google Analytics API version 4, and that gi
 
 To be able to use it, you have to setup a project on Google Console for Google Analytics, get the json key, then configure this package by setting the path for it. You'll have to add the developer email defined into the Google Console to the GA views to authorize it, otherwise the view won't be accessible through the API. 
 
-You can use the debug routes to go live and test a profile (ex id : 111111111, here with Docker) :
+You can use the debug routes to go live and test a profile (ex id : 111111111, here with [Docker](https://www.docker.com/)) :
 
 http://symfony.dev/app_dev.php/analytics-api/111111111 
 

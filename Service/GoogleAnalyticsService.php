@@ -1,6 +1,6 @@
 <?php
 
-namespace MediaFigaro\Analytics\Service;
+namespace MediaFigaro\GoogleAnalyticsApi\Service;
 
 use Google_Client;
 use Google_Service_AnalyticsReporting;

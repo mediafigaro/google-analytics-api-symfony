@@ -1,0 +1,4 @@
+media_figaro_analytics:
+    resource: "@MediaFigaroAnalytics/Controller/"
+    type:     annotation
+    prefix:   /analytics-api

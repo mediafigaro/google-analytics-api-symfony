@@ -1,0 +1,27 @@
+{
+  "name": "mediafigaro/google-analytics-api",
+  "type": "symfony-bundle",
+  "description": "Google Analytics API",
+  "keywords": ["symfony","google","analytics","api"],
+  "homepage": "https://github.com/mediafigaro/google-analytics-api",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Kendrick"
+    }
+  ],
+  "require": {
+    "google/apiclient": "^2.0",
+    "symfony/framework-bundle": ">=2.3",
+    "symfony/twig-bundle": ">=2.0",
+    "twig/twig": ">=1.6"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "4.8.*"
+  },
+  "autoload": {
+    "psr-4": {
+      "MediaFigaro\\GoogleAnalyticsApi\\": "."
+    }
+  }
+}

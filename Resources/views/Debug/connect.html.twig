@@ -1,0 +1,30 @@
+<html>
+<head></head>
+<body>
+
+<h1>Analytics API</h1>
+
+<h2>Results on the 30 last days</h2>
+
+{{ data.sessions|number_format(0, '', ' ') }} sessions <br />
+{{ data.bounce_rate|number_format(2, '.', ',') }} % bounce rate <br />
+{{ data.avg_time_on_page|number_format(2, '.', ',') }} s average time on page <br />
+{{ data.page_view_per_session|number_format(2, '.', ',') }} page view per session <br />
+{{ data.percent_new_visits|number_format(2, '.', ',') }} % new visits <br />
+{{ data.page_views|number_format(0, '', ' ') }} page views <br />
+{{ data.avg_page_load_time|number_format(2, '.', ' ') }} s average page load time <br />
+
+<h3>Google_Client</h3>
+
+{{ dump(client) }}
+
+<h3>Google_Service_AnalyticsReporting</h3>
+
+{{ dump(analytics) }}
+
+<h3>Google_Service_AnalyticsReporting_GetReportsResponse</h3>
+
+{{ dump(report) }}
+
+</body>
+</html>

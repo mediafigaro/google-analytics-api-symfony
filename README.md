@@ -1,6 +1,8 @@
 Google Analytics API v4 Symfony bundle
 ======================================
 
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/da6423cf-b198-402a-8d23-e82e7833f9f6/big.png)](https://insight.sensiolabs.com/projects/da6423cf-b198-402a-8d23-e82e7833f9f6)
+
 # use
 
 At MEDIA.figaro http://media.figaro.fr, the advertising department of the french newspaper Le Figaro and part of the Figaro Group (CCM Benchmark), we use this bundle to monitor our digital platforms with Google Analytics. 

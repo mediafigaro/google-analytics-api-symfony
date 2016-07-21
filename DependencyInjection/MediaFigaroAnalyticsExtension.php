@@ -1,6 +1,6 @@
 <?php
 
-namespace MediaFigaro\Analytics\DependencyInjection;
+namespace MediaFigaro\GoogleAnalyticsApi\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;

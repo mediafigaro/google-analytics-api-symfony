@@ -10,9 +10,19 @@ use Google_Service_AnalyticsReporting_Metric;
 use Google_Service_AnalyticsReporting_ReportRequest;
 use Symfony\Component\Config\Definition\Exception\Exception;
 
+/**
+ * Class GoogleAnalyticsService
+ * @package MediaFigaro\GoogleAnalyticsApi\Service
+ */
 class GoogleAnalyticsService {
 
+    /**
+     * @var Google_Client
+     */
     private $client;
+    /**
+     * @var Google_Service_AnalyticsReporting
+     */
     private $analytics;
 
     /**
@@ -33,18 +43,31 @@ class GoogleAnalyticsService {
 
     }
 
+    /**
+     * @return Google_Service_AnalyticsReporting
+     */
     public function getAnalytics() {
 
         return $this->analytics;
 
     }
 
+    /**
+     * @return Google_Client
+     */
     public function getClient() {
 
         return $this->client;
 
     }
 
+    /**
+     * @param $viewId
+     * @param $dateStart
+     * @param $dateEnd
+     * @param $expression
+     * @return mixed
+     */
     private function getDataDateRange($viewId,$dateStart,$dateEnd,$expression) {
 
         // Create the DateRange object
@@ -78,30 +101,72 @@ class GoogleAnalyticsService {
 
     }
 
+    /**
+     * @param $viewId
+     * @param $dateStart
+     * @param $dateEnd
+     * @return mixed
+     */
     public function getSessionsDateRange($viewId,$dateStart,$dateEnd) {
         return $this->getDataDateRange($viewId,$dateStart,$dateEnd,'sessions');
     }
 
+    /**
+     * @param $viewId
+     * @param $dateStart
+     * @param $dateEnd
+     * @return mixed
+     */
     public function getBounceRateDateRange($viewId,$dateStart,$dateEnd) {
         return $this->getDataDateRange($viewId,$dateStart,$dateEnd,'bounceRate');
     }
 
+    /**
+     * @param $viewId
+     * @param $dateStart
+     * @param $dateEnd
+     * @return mixed
+     */
     public function getAvgTimeOnPageDateRange($viewId,$dateStart,$dateEnd) {
         return $this->getDataDateRange($viewId,$dateStart,$dateEnd,'avgTimeOnPage');
     }
 
+    /**
+     * @param $viewId
+     * @param $dateStart
+     * @param $dateEnd
+     * @return mixed
+     */
     public function getPageviewsPerSessionDateRange($viewId,$dateStart,$dateEnd) {
         return $this->getDataDateRange($viewId,$dateStart,$dateEnd,'pageviewsPerSession');
     }
 
+    /**
+     * @param $viewId
+     * @param $dateStart
+     * @param $dateEnd
+     * @return mixed
+     */
     public function getPercentNewVisitsDateRange($viewId,$dateStart,$dateEnd) {
         return $this->getDataDateRange($viewId,$dateStart,$dateEnd,'percentNewVisits');
     }
 
+    /**
+     * @param $viewId
+     * @param $dateStart
+     * @param $dateEnd
+     * @return mixed
+     */
     public function getPageViewsDateRange($viewId,$dateStart,$dateEnd) {
         return $this->getDataDateRange($viewId,$dateStart,$dateEnd,'pageviews');
     }
 
+    /**
+     * @param $viewId
+     * @param $dateStart
+     * @param $dateEnd
+     * @return mixed
+     */
     public function getAvgPageLoadTimeDateRange($viewId,$dateStart,$dateEnd) {
         return $this->getDataDateRange($viewId,$dateStart,$dateEnd,'avgPageLoadTime');
     }

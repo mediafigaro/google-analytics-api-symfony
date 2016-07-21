@@ -1,9 +1,9 @@
 {
-  "name": "mediafigaro/google-analytics-api",
+  "name": "mediafigaro/google-analytics-api-symfony",
   "type": "symfony-bundle",
-  "description": "Google Analytics API",
-  "keywords": ["symfony","google","analytics","api"],
-  "homepage": "https://github.com/mediafigaro/google-analytics-api",
+  "description": "Google Analytics API v4 Symfony",
+  "keywords": ["symfony","google","analytics","api","v4"],
+  "homepage": "https://github.com/mediafigaro/google-analytics-api-symfony",
   "license": "MIT",
   "authors": [
     {

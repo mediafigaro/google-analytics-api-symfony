@@ -1,4 +1,4 @@
 services:
     media_figaro_analytics.api:
-        class: MediaFigaro\Analytics\Service\GoogleAnalyticsService
+        class: MediaFigaro\GoogleAnalyticsApi\Service\GoogleAnalyticsService
         arguments: ["%media_figaro_analytics.google_analytics_json_key%"]

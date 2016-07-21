@@ -1,6 +1,20 @@
 Google Analytics API v4 Symfony bundle
 ======================================
 
+# use
+
+At MEDIA.figaro http://media.figaro.fr, the advertising department of the french newspaper Le Figaro and part of the Figaro Group (CCM Benchmark), we use this bundle to monitor our digital platforms with Google Analytics. 
+
+It's a simple package that wraps the Google Analytics API version 4, and that gives you all the information to go straight to the point of getting some main metrics from GA.
+
+To be able to use it, you have to setup a project on Google Console for Google Analytics, get the json key, then configure this package by setting the path for it. You'll have to add the developer email defined into the Google Console to the GA views to authorize it, otherwise the view won't be accessible through the API. 
+
+You can use the debug routes to go live and test a profile (ex id : 111111111, here with Docker) :
+
+http://symfony.dev/app_dev.php/analytics-api/111111111 
+
+![debug](doc/debug.png)
+
 # installation
 
     composer require mediafigaro/google-analytics-api
@@ -65,7 +79,11 @@ Result of this debug page :
 In that 403 error case, follow the link and authorize the API v4.
 
     ...
-        "message": "Google Analytics Reporting API has not been used in project xxxxxx-xxxxxx-000000 before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/analyticsreporting.googleapis.com/overview?project=xxxxxx-xxxxxx-000000 then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.",
+        "message": "Google Analytics Reporting API has not been used in project xxxxxx-xxxxxx-000000 
+        before or it is disabled. Enable it by visiting 
+        https://console.developers.google.com/apis/api/analyticsreporting.googleapis.com/overview?project=xxxxxx-xxxxxx-000000 
+        then retry. If you enabled this API recently, wait a few minutes for the action to propagate 
+        to our systems and retry.",
         "domain": "global",
         "reason": "forbidden"
     }
@@ -77,13 +95,13 @@ In that 403 error case, follow the link and authorize the API v4.
 Call the service :
 
     $analyticsService = $this->get('media_figaro_analytics.api');
-    
     $analytics = $analyticsService->getAnalytics();
+    
+Use the method helpers to get the main metrics within a date range :
     
     $viewId = '000000000'; // set your view id
     
     // get some metrics (last 30 days, date format is yyyy-mm-dd)
-    
     $sessions = $analyticsService->getSessionsDateRange($viewId,'30daysAgo','today');
     $bounceRate = $analyticsService->getBounceRateDateRange($viewId,'30daysAgo','today');
     $avgTimeOnPage = $analyticsService->getAvgTimeOnPageDateRange($viewId,'30daysAgo','today');
@@ -91,6 +109,10 @@ Call the service :
     $percentNewVisits = $analyticsService->getPercentNewVisitsDateRange($viewId,'30daysAgo','today');
     $pageViews = $analyticsService->getPageViewsDateRange($viewId,'30daysAgo','today');
     $avgPageLoadTime = $analyticsService->getAvgPageLoadTimeDateRange($viewId,'30daysAgo','today');
+
+# contribution
+
+You are welcome to contribute to this small Google Analytics v4 wrapper, to create more helpers or more.
 
 # more tools
 

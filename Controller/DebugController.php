@@ -1,6 +1,6 @@
 <?php
 
-namespace MediaFigaro\Analytics\Controller;
+namespace MediaFigaro\GoogleAnalyticsApi\Controller;
 
 use Google_Service_AnalyticsReporting_DateRange;
 use Google_Service_AnalyticsReporting_GetReportsRequest;

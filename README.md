@@ -33,7 +33,7 @@ add to /app/AppKernel.php :
 
     $bundles = [
         ...
-        new MediaFigaro\Analytics\MediaFigaroAnalytics(),
+        new MediaFigaro\GoogleAnalyticsApi(),
     ];
 
 # configuration

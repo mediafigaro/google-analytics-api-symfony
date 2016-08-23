@@ -27,7 +27,7 @@ http://symfony.dev/app_dev.php/analytics-api/111111111
 
 # installation
 
-    composer require mediafigaro/google-analytics-api
+    composer require mediafigaro/google-analytics-api-symfony
     
 add to /app/AppKernel.php :
 

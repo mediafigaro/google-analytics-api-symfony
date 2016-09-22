@@ -10,6 +10,7 @@ Google Analytics API v4 Symfony bundle
 [![Monthly Downloads](https://poser.pugx.org/mediafigaro/google-analytics-api-symfony/d/monthly)](https://packagist.org/packages/mediafigaro/google-analytics-api-symfony)
 [![Daily Downloads](https://poser.pugx.org/mediafigaro/google-analytics-api-symfony/d/daily)](https://packagist.org/packages/mediafigaro/google-analytics-api-symfony)
 [![composer.lock](https://poser.pugx.org/mediafigaro/google-analytics-api-symfony/composerlock)](https://packagist.org/packages/mediafigaro/google-analytics-api-symfony)
+![dependencies](https://www.versioneye.com/user/projects/57e392926dfcd0003649c936/badge.svg?style=flat-square)
 
 # use
 

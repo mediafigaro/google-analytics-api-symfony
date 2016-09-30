@@ -22,7 +22,7 @@ class DebugController extends Controller
      */
     public function connectAction($viewId)
     {
-        $analyticsService = $this->get('media_figaro_analytics.api');
+        $analyticsService = $this->get('google_analytics_api.api');
 
         $client = $analyticsService->getClient();
 

@@ -10,7 +10,6 @@ Google Analytics API v4 Symfony bundle
 [![Monthly Downloads](https://poser.pugx.org/mediafigaro/google-analytics-api-symfony/d/monthly)](https://packagist.org/packages/mediafigaro/google-analytics-api-symfony)
 [![Daily Downloads](https://poser.pugx.org/mediafigaro/google-analytics-api-symfony/d/daily)](https://packagist.org/packages/mediafigaro/google-analytics-api-symfony)
 [![composer.lock](https://poser.pugx.org/mediafigaro/google-analytics-api-symfony/composerlock)](https://packagist.org/packages/mediafigaro/google-analytics-api-symfony)
-![dependencies](https://www.versioneye.com/user/projects/57e392926dfcd0003649c936/badge.svg?style=flat-square)
 
 # use
 
@@ -39,7 +38,7 @@ add to /app/AppKernel.php :
 
 # configuration
 
-    media_figaro_analytics.google_analytics_json_key
+    google_analytics_api.google_analytics_json_key
 
 Set the relative path for your json key (set it on your server, better not into your repository) from execution path, ex: /data/analytics/analytics-27cef1a4c0fd.json.
 
@@ -49,7 +48,7 @@ Set the relative path for your json key (set it on your server, better not into 
 
 /app/config/config.yml
 
-    media_figaro_analytics:
+    google_analytics_api:
         google_analytics_json_key: "%google_analytics_json_key%"
         
 # Google API key
@@ -72,8 +71,8 @@ Add the debug routes for development purposes :
 
 /app/config/routing_dev.yml
 
-    _media_figaro_analytics:
-        resource: "@MediaFigaroAnalytics/Resources/config/routing_dev.yml"
+    _google_analytics_api:
+        resource: "@GoogleAnalyticsApi/Resources/config/routing_dev.yml"
 
 http://symfony.dev/app_dev.php/analytics-api/000000000 
 
@@ -105,7 +104,7 @@ In that 403 error case, follow the link and authorize the API v4.
 
 Call the service :
 
-    $analyticsService = $this->get('media_figaro_analytics.api');
+    $analyticsService = $this->get('google_analytics_api.api');
     $analytics = $analyticsService->getAnalytics();
     
 Use the method helpers to get the main metrics within a date range :
@@ -127,4 +126,4 @@ You are welcome to contribute to this small Google Analytics v4 wrapper, to crea
 
 # more tools
 
-Try the Symfony Debug Toolbar Git : https://github.com/kendrick-k/symfony-debug-toolbar-git
+Try the Symfony Debug Toolbar Git : https://github.com/kendrick-k/symfony-debug-toolbar-git and the docker Service Oriented Architecture for Symfony : https://github.com/mediafigaro/docker-symfony.

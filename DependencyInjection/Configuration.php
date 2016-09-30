@@ -18,7 +18,7 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('media_figaro_analytics');
+        $rootNode = $treeBuilder->root('google_analytics_api');
 
         $rootNode
             ->children()

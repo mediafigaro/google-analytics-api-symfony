@@ -31,7 +31,7 @@ class GoogleAnalyticsService {
     public function __construct($keyFileLocation) {
 
         if (!file_exists($keyFileLocation)) {
-            throw new Exception("can't find file key location defined by media_figaro_analytics.google_analytics_json_key parameter");
+            throw new Exception("can't find file key location defined by google_analytics_api.google_analytics_json_key parameter, ex : ../data/analytics/analytics-key.json");
         }
 
         $this->client = new Google_Client();

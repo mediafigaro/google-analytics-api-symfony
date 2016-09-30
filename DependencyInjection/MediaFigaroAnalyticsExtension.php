@@ -12,7 +12,7 @@ use Symfony\Component\DependencyInjection\Loader;
  *
  * @link http://symfony.com/doc/current/cookbook/bundles/extension.html
  */
-class MediaFigaroAnalyticsExtension extends Extension
+class GoogleAnalyticsApiExtension extends Extension
 {
     /**
      * {@inheritdoc}
@@ -25,7 +25,7 @@ class MediaFigaroAnalyticsExtension extends Extension
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
 
-        $container->setParameter('media_figaro_analytics.google_analytics_json_key', $config['google_analytics_json_key']);
+        $container->setParameter('google_analytics_api.google_analytics_json_key', $config['google_analytics_json_key']);
 
     }
 }

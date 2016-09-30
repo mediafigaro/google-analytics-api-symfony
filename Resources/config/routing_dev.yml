@@ -1,4 +1,4 @@
-media_figaro_analytics:
-    resource: "@MediaFigaroAnalytics/Controller/"
+google_analytics_api:
+    resource: "@GoogleAnalyticsApi/Controller/"
     type:     annotation
     prefix:   /analytics-api

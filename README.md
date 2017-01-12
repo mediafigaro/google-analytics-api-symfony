@@ -127,3 +127,7 @@ You are welcome to contribute to this small Google Analytics v4 wrapper, to crea
 # more tools
 
 Try the Symfony Debug Toolbar Git : https://github.com/kendrick-k/symfony-debug-toolbar-git and the docker Service Oriented Architecture for Symfony : https://github.com/mediafigaro/docker-symfony.
+
+# tutorial
+
+French [tutorial](https://www.supinfo.com/articles/single/2423-symfony-27-integration-google-analytics#idp1412761324) by Jérémy PERCHE, SUPINFO student.

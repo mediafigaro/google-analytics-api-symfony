@@ -130,4 +130,4 @@ Try the Symfony Debug Toolbar Git : https://github.com/kendrick-k/symfony-debug-
 
 # tutorial
 
-French [tutorial](https://www.supinfo.com/articles/single/2423-symfony-27-integration-google-analytics#idp1412761324) by Jérémy PERCHE, SUPINFO student.
+French [tutorial](https://www.supinfo.com/articles/single/2423-symfony-27-integration-google-analytics) by Jérémy PERCHE, SUPINFO student.

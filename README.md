@@ -38,7 +38,7 @@ without Flex, add to /app/AppKernel.php :
 
 # Versions
 
-##1.1
+## 1.1
 
 Symfony 4 simple adaptation with a public service and a new public method that takes in charge metrics and dimensions with sorting options :
 
@@ -143,7 +143,7 @@ $data :
 
 **Session - Dimensions & Metrics Explorer** : https://developers.google.com/analytics/devguides/reporting/core/dimsmets
 
-##1.0
+## 1.0
 
 First version with a quick connector to consume Google Analytics v4 with Google API client with getDataDateRange private method (that handles only metrics), wrapped with some public methods to get a quick access to main metrics such as sessions (eg. getBounceRateDateRange($viewId,$dateStart,$dateEnd)), bounce rate, average time on page, page view per session, new visits, page views and average page load time.
 Debug route included for a simple setup and test.

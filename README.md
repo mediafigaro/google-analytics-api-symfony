@@ -47,11 +47,17 @@ Symfony 4 simple adaptation with a public service and a new public method that t
 Query explorer https://ga-dev-tools.appspot.com/query-explorer/ to build your query.
 
 $viewId : https://developers.google.com/analytics/devguides/reporting/core/v3/reference#ids
+
 $dateStart : https://developers.google.com/analytics/devguides/reporting/core/v3/reference#startDate
+
 $dateEnd: https://developers.google.com/analytics/devguides/reporting/core/v3/reference#endDate
+
 $metrics: https://developers.google.com/analytics/devguides/reporting/core/v3/reference#metrics (without the 'ga:', array or string)
+
 $dimensions: https://developers.google.com/analytics/devguides/reporting/core/v3/reference#dimensions (without the 'ga:', array or string)
-$sorting: https://developers.google.com/analytics/devguides/reporting/core/v3/reference#sort 
+
+$sorting: https://developers.google.com/analytics/devguides/reporting/core/v3/reference#sort
+ 
 without the 'ga:', array or string, eg. :
 
     [
@@ -139,7 +145,7 @@ $data :
 
 ##1.0
 
-First version with a quick connector to consume Google Analytics v4 with Google API client with (only) metrics with getDataDateRange private method, wrapped with some public methods to get a quick access to main metrics such as sessions (eg. getBounceRateDateRange($viewId,$dateStart,$dateEnd)), bounce rate, average time on page, page view per session, new visits, page views and average page load time.
+First version with a quick connector to consume Google Analytics v4 with Google API client with getDataDateRange private method (that handles only metrics), wrapped with some public methods to get a quick access to main metrics such as sessions (eg. getBounceRateDateRange($viewId,$dateStart,$dateEnd)), bounce rate, average time on page, page view per session, new visits, page views and average page load time.
 Debug route included for a simple setup and test.
 
 # Configuration

@@ -38,6 +38,36 @@ without Flex, add to /app/AppKernel.php :
 
 # Versions
 
+## 1.2
+
+Adding filterMetric and filterDimension to getDataDateRangeMetricsDimensions method which is a simple wrapper to Google Api Client ex :
+
+    $analyticsService = $this->get('google_analytics_api.api');
+
+    $data = $analyticsService->getDataDateRangeMetricsDimensions(
+        'myanalyticsviewid',    // viewid
+        '2018-01-01',   // date start
+        'today',        // date end
+        ['sessions','users','percentNewSessions','bounceRate'],             // metric
+        ['source','campaign','fullReferrer','sourceMedium','pagePath'],     // dimension
+        [   // order metric and/or dimension
+            'fields'    =>  ['sessions'],
+            'order'     =>  'descending'
+        ],
+        [   // metric
+            'metric_name'       =>  'sessions',
+            'operator'          =>  'LESS_THAN',
+            'comparison_value'  =>  '100'
+        ],
+        [   // dimension
+            'dimension_name'    =>  'sourceMedium',
+            'operator'          =>  'EXACT',
+            'expressions'       =>  [
+                'trading / native'
+            ]
+        ]
+    );
+
 ## 1.1
 
 Symfony 4 simple adaptation with a public service and a new public method that takes in charge metrics and dimensions with sorting options :

@@ -6,8 +6,12 @@ use Google_Client;
 use Google_Service_AnalyticsReporting;
 use Google_Service_AnalyticsReporting_DateRange;
 use Google_Service_AnalyticsReporting_Dimension;
+use Google_Service_AnalyticsReporting_DimensionFilter;
+use Google_Service_AnalyticsReporting_DimensionFilterClause;
 use Google_Service_AnalyticsReporting_GetReportsRequest;
 use Google_Service_AnalyticsReporting_Metric;
+use Google_Service_AnalyticsReporting_MetricFilter;
+use Google_Service_AnalyticsReporting_MetricFilterClause;
 use Google_Service_AnalyticsReporting_OrderBy;
 use Google_Service_AnalyticsReporting_ReportRequest;
 use Symfony\Component\Config\Definition\Exception\Exception;
@@ -74,6 +78,7 @@ class GoogleAnalyticsService {
     /**
      * getDataDateRangeMetricsDimensions
      *
+     * simple helper & wrapper of Google Api Client
      *
      * @param $viewId
      * @param $dateStart
@@ -81,6 +86,8 @@ class GoogleAnalyticsService {
      * @param array $metrics
      * @param array $dimensions
      * @param array $sorting ( = [ ['fields']=>['sessions','bounceRate',..] , 'order'=>'descending' ] )
+     * @param array $filterMetric ( = [ ['metric_name']=>['sessions'] , 'operator'=>'LESS_THAN' , 'comparison_value'=>'100' ] )
+     * @param array $filterDimension ( = [ ['dimension_name']=>['sourceMedium'] , 'operator'=>'EXACT' , 'expressions'=>['my_campaign'] ] )
      * @return mixed
      *
      * @link https://developers.google.com/analytics/devguides/reporting/core/dimsmets
@@ -90,7 +97,7 @@ class GoogleAnalyticsService {
      * @link https://github.com/google/google-api-php-client
      *
      */
-    public function getDataDateRangeMetricsDimensions($viewId,$dateStart,$dateEnd,$metrics='sessions',$dimensions=null,$sorting=null) {
+    public function getDataDateRangeMetricsDimensions($viewId,$dateStart,$dateEnd,$metrics='sessions',$dimensions=null,$sorting=null,$filterMetric=null,$filterDimension=null) {
 
         // Create the DateRange object
         $dateRange = new Google_Service_AnalyticsReporting_DateRange();
@@ -115,6 +122,7 @@ class GoogleAnalyticsService {
                 $this->reportingMetrics[] = $reportingMetrics;
 
             }
+
         }
 
         if (isset($dimensions) && !is_array($dimensions)) {
@@ -127,7 +135,7 @@ class GoogleAnalyticsService {
 
             foreach ($dimensions as $dimension) {
 
-                // Create the segment dimension.
+                // Create the segment(s) dimension.
                 $reportingDimensions = new Google_Service_AnalyticsReporting_Dimension();
                 $reportingDimensions->setName("ga:$dimension");
 
@@ -177,6 +185,60 @@ class GoogleAnalyticsService {
             }
 
             $request->setOrderBys($orderBy);
+
+        }
+
+        // metric filter (simple wrapper)
+        // @link https://developers.google.com/analytics/devguides/reporting/core/v4/rest/v4/reports/batchGet#metricfilter
+
+        if (isset($filterMetric) && is_array($filterMetric)) {
+
+            if (isset($filterMetric['metric_name']) && isset($filterMetric['operator']) && isset($filterMetric['comparison_value'])) {
+
+                // Create the DimensionFilter.
+                $metricFilter = new Google_Service_AnalyticsReporting_MetricFilter();
+                $metricFilter->setMetricName('ga:'.$filterMetric['metric_name']);
+                $metricFilter->setOperator($filterMetric['operator']);
+                $metricFilter->setComparisonValue($filterMetric['comparison_value']);
+
+                // Create the DimensionFilterClauses
+                $metricFilterClause = new Google_Service_AnalyticsReporting_MetricFilterClause();
+                $metricFilterClause->setFilters([$metricFilter]);
+
+                // add to request
+                $request->setMetricFilterClauses($metricFilterClause);
+
+            }
+
+        }
+
+
+
+        // dimension filter (simple wrapper)
+        // @link https://developers.google.com/analytics/devguides/reporting/core/v3/reference#filters
+
+        if (isset($filterDimension) && is_array($filterDimension)) {
+
+            if (isset($filterDimension['dimension_name']) && isset($filterDimension['operator']) && isset($filterDimension['expressions'])) {
+
+                if (!is_array($filterDimension['expressions'])) {
+                    $filterDimension['expressions'] = [ $filterDimension['expressions'] ];
+                }
+
+                // Create the DimensionFilter.
+                $dimensionFilter = new Google_Service_AnalyticsReporting_DimensionFilter();
+                $dimensionFilter->setDimensionName('ga:'.$filterDimension['dimension_name']);
+                $dimensionFilter->setOperator($filterDimension['operator']);
+                $dimensionFilter->setExpressions($filterDimension['expressions']);
+
+                // Create the DimensionFilterClauses
+                $dimensionFilterClause = new Google_Service_AnalyticsReporting_DimensionFilterClause();
+                $dimensionFilterClause->setFilters(array($dimensionFilter));
+
+                // add to request
+                $request->setDimensionFilterClauses(array($dimensionFilterClause));
+
+            }
 
         }
 

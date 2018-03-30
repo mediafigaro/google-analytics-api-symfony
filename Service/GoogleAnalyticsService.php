@@ -119,8 +119,7 @@ class GoogleAnalyticsService {
                 $reportingMetrics->setExpression("ga:$metric");
                 $reportingMetrics->setAlias("$metric");
 
-                if (!in_array($reportingMetrics,$this->reportingMetrics))
-                    $this->reportingMetrics[] = $reportingMetrics;
+                $this->reportingMetrics[] = $reportingMetrics;
 
             }
 
@@ -140,8 +139,7 @@ class GoogleAnalyticsService {
                 $reportingDimensions = new Google_Service_AnalyticsReporting_Dimension();
                 $reportingDimensions->setName("ga:$dimension");
 
-                if (!in_array($reportingDimensions,$this->reportingDimensions))
-                    $this->reportingDimensions[] = $reportingDimensions;
+                $this->reportingDimensions[] = $reportingDimensions;
 
             }
         }

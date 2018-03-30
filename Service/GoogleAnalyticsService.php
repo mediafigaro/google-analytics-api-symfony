@@ -45,7 +45,7 @@ class GoogleAnalyticsService {
     public function __construct($keyFileLocation) {
 
         if (!file_exists($keyFileLocation)) {
-            throw new Exception("can't find file key location defined by google_analytics_api.google_analytics_json_key parameter, ex : ../data/analytics/analytics-key.json");
+            throw new Exception("can't find file key location defined by google_analytics_api.google_analytics_json_key parameter, ex : ../data/analytics/analytics-key.json, defined : ".$keyFileLocation);
         }
 
         $this->client = new Google_Client();
@@ -119,7 +119,8 @@ class GoogleAnalyticsService {
                 $reportingMetrics->setExpression("ga:$metric");
                 $reportingMetrics->setAlias("$metric");
 
-                $this->reportingMetrics[] = $reportingMetrics;
+                if (!in_array($reportingMetrics,$this->reportingMetrics))
+                    $this->reportingMetrics[] = $reportingMetrics;
 
             }
 
@@ -139,7 +140,8 @@ class GoogleAnalyticsService {
                 $reportingDimensions = new Google_Service_AnalyticsReporting_Dimension();
                 $reportingDimensions->setName("ga:$dimension");
 
-                $this->reportingDimensions[] = $reportingDimensions;
+                if (!in_array($reportingDimensions,$this->reportingDimensions))
+                    $this->reportingDimensions[] = $reportingDimensions;
 
             }
         }

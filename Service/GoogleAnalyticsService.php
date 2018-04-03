@@ -126,11 +126,11 @@ class GoogleAnalyticsService {
 
         }
 
-        if (isset($dimensions) && !is_array($dimensions)) {
+        if (isset($dimensions) && $dimensions && !is_array($dimensions)) {
             $dimensions = [$dimensions];
         }
 
-        if (isset($dimensions) && is_array($dimensions)) {
+        if (isset($dimensions) && $dimensions && is_array($dimensions)) {
 
             $this->reportingDimensions = [];
 

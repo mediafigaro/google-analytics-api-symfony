@@ -33,11 +33,11 @@ class GoogleAnalyticsService {
     /**
      * @var Google_Service_AnalyticsReporting_Dimension[]
      */
-    private $reportingDimension = null;
+    private $reportingDimensions = null;
     /**
      * @var Google_Service_AnalyticsReporting_Metric[]
      */
-    private $reportingMetric = null;
+    private $reportingMetrics = null;
 
     /**
      * construct
@@ -104,13 +104,13 @@ class GoogleAnalyticsService {
         $dateRange->setStartDate($dateStart);
         $dateRange->setEndDate($dateEnd);
 
-        if (isset($metrics) && !is_array($metrics)) {
+        if (isset($metrics) && $metrics && !is_array($metrics)) {
             $metrics = [$metrics];
         }
 
-        if (isset($metrics) && is_array($metrics)) {
+        if (isset($metrics) && $metrics && is_array($metrics)) {
 
-            $this->reportingDimensions = [];
+            $this->reportingMetrics = [];
 
             foreach ($metrics as $metric) {
 
@@ -119,7 +119,8 @@ class GoogleAnalyticsService {
                 $reportingMetrics->setExpression("ga:$metric");
                 $reportingMetrics->setAlias("$metric");
 
-                $this->reportingMetrics[] = $reportingMetrics;
+                if (!in_array($reportingMetrics,$this->reportingMetrics))
+                    $this->reportingMetrics[] = $reportingMetrics;
 
             }
 
@@ -139,7 +140,8 @@ class GoogleAnalyticsService {
                 $reportingDimensions = new Google_Service_AnalyticsReporting_Dimension();
                 $reportingDimensions->setName("ga:$dimension");
 
-                $this->reportingDimensions[] = $reportingDimensions;
+                if (!in_array($reportingDimensions,$this->reportingDimensions))
+                    $this->reportingDimensions[] = $reportingDimensions;
 
             }
         }

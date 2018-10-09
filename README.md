@@ -38,6 +38,24 @@ without Flex, add to /app/AppKernel.php :
 
 # Versions
 
+## 1.3
+
+Adding gatherAllData to getDataDateRangeMetricsDimensions method
+
+    $analyticsService = $this->get('google_analytics_api.api');
+
+    $data = $analyticsService->getDataDateRangeMetricsDimensions(
+        'myanalyticsviewid',    // viewid
+        $beginDate,
+        $endDate,
+        $metrics,
+        $dimensions,
+        $sorting,
+        $filterMetric,
+        $filterDimension,
+        false //default (false) will gather only the 1000 firt rows, change to true to get all the rows
+    );
+
 ## 1.2
 
 Adding filterMetric and filterDimension to getDataDateRangeMetricsDimensions method which is a simple wrapper to Google Api Client ex :

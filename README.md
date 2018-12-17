@@ -17,6 +17,8 @@ At MEDIA.figaro http://media.figaro.fr, the advertising department of the french
 
 It's a simple package that wraps the Google Analytics API version 4, and that gives you all the information to go straight to the point of getting some main metrics from GA.
 
+Development by Kendrick https://github.com/kendrick-k.
+
 To be able to use it, you have to setup a project on Google Console for Google Analytics, get the json key, then configure this package by setting the path for it. You'll have to add the developer email defined into the Google Console to the GA views to authorize it, otherwise the view won't be accessible through the API. 
 
 You can use the debug routes to go live and test a profile (ex id : 111111111, here with [Docker](https://github.com/mediafigaro/docker-symfony)) :

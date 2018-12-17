@@ -88,6 +88,7 @@ class GoogleAnalyticsService {
      * @param array $sorting ( = [ ['fields']=>['sessions','bounceRate',..] , 'order'=>'descending' ] )
      * @param array $filterMetric ( = [ ['metric_name']=>['sessions'] , 'operator'=>'LESS_THAN' , 'comparison_value'=>'100' ] )
      * @param array $filterDimension ( = [ ['dimension_name']=>['sourceMedium'] , 'operator'=>'EXACT' , 'expressions'=>['my_campaign'] ] )
+     * @param boolean $gatherAllData
      * @return mixed
      *
      * @link https://developers.google.com/analytics/devguides/reporting/core/dimsmets
@@ -97,7 +98,7 @@ class GoogleAnalyticsService {
      * @link https://github.com/google/google-api-php-client
      *
      */
-    public function getDataDateRangeMetricsDimensions($viewId,$dateStart,$dateEnd,$metrics='sessions',$dimensions=null,$sorting=null,$filterMetric=null,$filterDimension=null) {
+    public function getDataDateRangeMetricsDimensions($viewId,$dateStart,$dateEnd,$metrics='sessions',$dimensions=null,$sorting=null,$filterMetric=null,$filterDimension=null,$gatherAllData=false) {
 
         // Create the DateRange object
         $dateRange = new Google_Service_AnalyticsReporting_DateRange();
@@ -245,10 +246,30 @@ class GoogleAnalyticsService {
         $body = new Google_Service_AnalyticsReporting_GetReportsRequest();
         $body->setReportRequests([$request]);
 
-        $reports = $this->analytics->reports->batchGet($body);
-
         $data = [];
+        if ($gatherAllData === true) {
+            do {
+                $reports = $this->analytics->reports->batchGet($body);
+                $data = $this->gatherData($metrics, $dimensions, $reports, $data);
+                $request->setPageToken($reports[0]->getNextPageToken());
+            } while ($reports[0]->getNextPageToken() != '');
+        } else {
+            $reports = $this->analytics->reports->batchGet($body);
+            $data = $this->gatherData($metrics, $dimensions, $reports, $data);
+        }
 
+        return $data;
+
+    }
+
+    /**
+     * @param $metrics
+     * @param $dimensions
+     * @param $reports
+     * @param $data
+     * @return array
+     */
+    private function gatherData($metrics, $dimensions, $reports, $data) {
         foreach ($reports->getReports()[0]->getData()->getRows() as $row) {
 
             // arrays
@@ -259,7 +280,7 @@ class GoogleAnalyticsService {
 
             if (isset($dimensionsArray)) {
 
-                $i=0;
+                $i = 0;
 
                 foreach ($dimensionsArray as $k => $v) {
                     $dimensionsKeyValue[$dimensions[$i]] = $v;
@@ -282,14 +303,12 @@ class GoogleAnalyticsService {
             }
 
             $data[] = [
-                'metrics'       =>  $metricsKeyValue,
-                'dimensions'    =>  $dimensionsKeyValue
+                'metrics' => $metricsKeyValue,
+                'dimensions' => $dimensionsKeyValue
             ];
 
         }
-
         return $data;
-
     }
 
     /**

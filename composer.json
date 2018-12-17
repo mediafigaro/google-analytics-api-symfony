@@ -1,5 +1,5 @@
 {
-  "name": "mediafigaro/google-analytics-api-symfony",
+  "name": "waoufi/google-analytics-api-symfony",
   "type": "symfony-bundle",
   "description": "Google Analytics API v4 Symfony",
   "keywords": ["symfony","google","analytics","api","v4"],
@@ -8,6 +8,9 @@
   "authors": [
     {
       "name": "Kendrick"
+    },
+    {
+      "name": "waoufi"
     }
   ],
   "require": {

@@ -1,9 +1,9 @@
 {
-  "name": "appandwebgmbh/google-analytics-api-symfony",
+  "name": "mediafigaro/google-analytics-api-symfony",
   "type": "symfony-bundle",
   "description": "Google Analytics API v4 Symfony",
   "keywords": ["symfony","google","analytics","api","v4"],
-  "homepage": "https://github.com/appandwebgmbh/google-analytics-api-symfony",
+  "homepage": "https://github.com/mediafigaro/google-analytics-api-symfony",
   "license": "MIT",
   "authors": [
     {
@@ -21,7 +21,7 @@
   },
   "autoload": {
     "psr-4": {
-      "AppAndWeb\\GoogleAnalyticsApi\\": "."
+      "MediaFigaro\\GoogleAnalyticsApi\\": "."
     }
   }
 }

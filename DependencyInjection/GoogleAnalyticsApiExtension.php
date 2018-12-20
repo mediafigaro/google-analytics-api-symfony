@@ -23,9 +23,9 @@ class GoogleAnalyticsApiExtension extends Extension
         $config = $this->processConfiguration($configuration, $configs);
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-        $loader->load('services.yml');
+	$loader->load('services.yml');
 
-        $container->setParameter('google_analytics_api.google_analytics_json_key', $config['google_analytics_json_key']);
+	$container->setParameter('google_analytics_api.google_analytics_json_key', $config['google_analytics_json_key']);
 
     }
 }

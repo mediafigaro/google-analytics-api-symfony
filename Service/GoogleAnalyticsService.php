@@ -6,21 +6,22 @@ use Google_Client;
 use Google_Service_AnalyticsReporting;
 use Google_Service_AnalyticsReporting_DateRange;
 use Google_Service_AnalyticsReporting_Dimension;
-use Google_Service_AnalyticsReporting_DimensionFilter;
-use Google_Service_AnalyticsReporting_DimensionFilterClause;
 use Google_Service_AnalyticsReporting_GetReportsRequest;
 use Google_Service_AnalyticsReporting_Metric;
-use Google_Service_AnalyticsReporting_MetricFilter;
-use Google_Service_AnalyticsReporting_MetricFilterClause;
 use Google_Service_AnalyticsReporting_OrderBy;
 use Google_Service_AnalyticsReporting_ReportRequest;
+use Google_Service_AnalyticsReporting_DimensionFilter;
+use Google_Service_AnalyticsReporting_DimensionFilterClause;
+use Google_Service_AnalyticsReporting_MetricFilter;
+use Google_Service_AnalyticsReporting_MetricFilterClause;
 use Symfony\Component\Config\Definition\Exception\Exception;
 
 /**
  * Class GoogleAnalyticsService
  * @package MediaFigaro\GoogleAnalyticsApi\Service
  */
-class GoogleAnalyticsService {
+class GoogleAnalyticsService
+{
 
     /**
      * @var Google_Client
@@ -42,10 +43,11 @@ class GoogleAnalyticsService {
     /**
      * construct
      */
-    public function __construct($keyFileLocation) {
+    public function __construct($keyFileLocation)
+    {
 
         if (!file_exists($keyFileLocation)) {
-            throw new Exception("can't find file key location defined by google_analytics_api.google_analytics_json_key parameter, ex : ../data/analytics/analytics-key.json, defined : ".$keyFileLocation);
+            throw new Exception("can't find file key location defined by google_analytics_api.google_analytics_json_key parameter, ex : ../data/analytics/analytics-key.json");
         }
 
         $this->client = new Google_Client();
@@ -60,7 +62,8 @@ class GoogleAnalyticsService {
     /**
      * @return Google_Service_AnalyticsReporting
      */
-    public function getAnalytics() {
+    public function getAnalytics()
+    {
 
         return $this->analytics;
 
@@ -69,7 +72,8 @@ class GoogleAnalyticsService {
     /**
      * @return Google_Client
      */
-    public function getClient() {
+    public function getClient()
+    {
 
         return $this->client;
 
@@ -78,7 +82,6 @@ class GoogleAnalyticsService {
     /**
      * getDataDateRangeMetricsDimensions
      *
-     * simple helper & wrapper of Google Api Client
      *
      * @param $viewId
      * @param $dateStart
@@ -97,7 +100,8 @@ class GoogleAnalyticsService {
      * @link https://github.com/google/google-api-php-client
      *
      */
-    public function getDataDateRangeMetricsDimensions($viewId,$dateStart,$dateEnd,$metrics='sessions',$dimensions=null,$sorting=null,$filterMetric=null,$filterDimension=null) {
+    public function getDataDateRangeMetricsDimensions($viewId, $dateStart, $dateEnd, $metrics = 'sessions', $dimensions = null, $sorting = null, $filterMetric = null, $filterDimension = null)
+    {
 
         // Create the DateRange object
         $dateRange = new Google_Service_AnalyticsReporting_DateRange();
@@ -122,7 +126,6 @@ class GoogleAnalyticsService {
                 $this->reportingMetrics[] = $reportingMetrics;
 
             }
-
         }
 
         if (isset($dimensions) && !is_array($dimensions)) {
@@ -135,7 +138,7 @@ class GoogleAnalyticsService {
 
             foreach ($dimensions as $dimension) {
 
-                // Create the segment(s) dimension.
+                // Create the segment dimension.
                 $reportingDimensions = new Google_Service_AnalyticsReporting_Dimension();
                 $reportingDimensions->setName("ga:$dimension");
 
@@ -187,65 +190,47 @@ class GoogleAnalyticsService {
             $request->setOrderBys($orderBy);
 
         }
-
-        // metric filter (simple wrapper)
-        // @link https://developers.google.com/analytics/devguides/reporting/core/v4/rest/v4/reports/batchGet#metricfilter
-
         if (isset($filterMetric) && is_array($filterMetric)) {
-
             if (isset($filterMetric['metric_name']) && isset($filterMetric['operator']) && isset($filterMetric['comparison_value'])) {
-
                 // Create the DimensionFilter.
                 $metricFilter = new Google_Service_AnalyticsReporting_MetricFilter();
-                $metricFilter->setMetricName('ga:'.$filterMetric['metric_name']);
+                $metricFilter->setMetricName('ga:' . $filterMetric['metric_name']);
                 $metricFilter->setOperator($filterMetric['operator']);
                 $metricFilter->setComparisonValue($filterMetric['comparison_value']);
-
                 // Create the DimensionFilterClauses
                 $metricFilterClause = new Google_Service_AnalyticsReporting_MetricFilterClause();
                 $metricFilterClause->setFilters([$metricFilter]);
-
                 // add to request
                 $request->setMetricFilterClauses($metricFilterClause);
-
             }
-
         }
 
-
-
-        // dimension filter (simple wrapper)
-        // @link https://developers.google.com/analytics/devguides/reporting/core/v3/reference#filters
-
         if (isset($filterDimension) && is_array($filterDimension)) {
-
             if (isset($filterDimension['dimension_name']) && isset($filterDimension['operator']) && isset($filterDimension['expressions'])) {
-
                 if (!is_array($filterDimension['expressions'])) {
-                    $filterDimension['expressions'] = [ $filterDimension['expressions'] ];
+                    $filterDimension['expressions'] = [$filterDimension['expressions']];
                 }
-
                 // Create the DimensionFilter.
                 $dimensionFilter = new Google_Service_AnalyticsReporting_DimensionFilter();
-                $dimensionFilter->setDimensionName('ga:'.$filterDimension['dimension_name']);
+                $dimensionFilter->setDimensionName('ga:' . $filterDimension['dimension_name']);
                 $dimensionFilter->setOperator($filterDimension['operator']);
                 $dimensionFilter->setExpressions($filterDimension['expressions']);
-
                 // Create the DimensionFilterClauses
                 $dimensionFilterClause = new Google_Service_AnalyticsReporting_DimensionFilterClause();
                 $dimensionFilterClause->setFilters(array($dimensionFilter));
-
                 // add to request
                 $request->setDimensionFilterClauses(array($dimensionFilterClause));
-
             }
-
         }
-
         $body = new Google_Service_AnalyticsReporting_GetReportsRequest();
         $body->setReportRequests([$request]);
-
-        $reports = $this->analytics->reports->batchGet($body);
+        //$reports = $this->analytics->reports->batchGet($body);
+        $data = [];
+        do {
+            $reports = $this->analytics->reports->batchGet($body);
+            $data = $this->gatherData($metrics, $dimensions, $reports, $data);
+            $request->setPageToken($reports[0]->getNextPageToken());
+        } while ($reports[0]->getNextPageToken() != '');
 
         $data = [];
 
@@ -259,7 +244,7 @@ class GoogleAnalyticsService {
 
             if (isset($dimensionsArray)) {
 
-                $i=0;
+                $i = 0;
 
                 foreach ($dimensionsArray as $k => $v) {
                     $dimensionsKeyValue[$dimensions[$i]] = $v;
@@ -282,14 +267,51 @@ class GoogleAnalyticsService {
             }
 
             $data[] = [
-                'metrics'       =>  $metricsKeyValue,
-                'dimensions'    =>  $dimensionsKeyValue
+                'metrics' => $metricsKeyValue,
+                'dimensions' => $dimensionsKeyValue
             ];
 
         }
 
         return $data;
 
+    }
+
+    /**
+     * @param $metrics
+     * @param $dimensions
+     * @param $reports
+     * @param $data
+     * @return array
+     */
+    private function gatherData($metrics, $dimensions, $reports, $data)
+    {
+        foreach ($reports->getReports()[0]->getData()->getRows() as $row) {
+            // arrays
+            $dimensionsArray = $row->getDimensions();
+            $valuesArray = $row->getMetrics()[0]->getValues();
+            $dimensionsKeyValue = [];
+            if (isset($dimensionsArray)) {
+                $i = 0;
+                foreach ($dimensionsArray as $k => $v) {
+                    $dimensionsKeyValue[$dimensions[$i]] = $v;
+                    $i++;
+                }
+            }
+            $metricsKeyValue = [];
+            if (isset($metrics)) {
+                $i = 0;
+                foreach ($metrics as $k => $v) {
+                    $metricsKeyValue[$metrics[$i]] = $valuesArray[$i];
+                    $i++;
+                }
+            }
+            $data[] = [
+                'metrics' => $metricsKeyValue,
+                'dimensions' => $dimensionsKeyValue
+            ];
+        }
+        return $data;
     }
 
     /**
@@ -301,7 +323,8 @@ class GoogleAnalyticsService {
      * https://ga-dev-tools.appspot.com/query-explorer/
      *
      */
-    private function getDataDateRange($viewId,$dateStart,$dateEnd,$metric) {
+    private function getDataDateRange($viewId, $dateStart, $dateEnd, $metric)
+    {
 
         // Create the DateRange object
         $dateRange = new Google_Service_AnalyticsReporting_DateRange();
@@ -347,8 +370,7 @@ class GoogleAnalyticsService {
         $result = $report->getReports()[0]
             ->getData()
             ->getTotals()[0]
-            ->getValues()[0]
-        ;
+            ->getValues()[0];
 
         return $result;
 
@@ -360,8 +382,9 @@ class GoogleAnalyticsService {
      * @param $dateEnd
      * @return mixed
      */
-    public function getSessionsDateRange($viewId,$dateStart,$dateEnd) {
-        return $this->getDataDateRange($viewId,$dateStart,$dateEnd,'sessions');
+    public function getSessionsDateRange($viewId, $dateStart, $dateEnd)
+    {
+        return $this->getDataDateRange($viewId, $dateStart, $dateEnd, 'sessions');
     }
 
     /**
@@ -370,8 +393,9 @@ class GoogleAnalyticsService {
      * @param $dateEnd
      * @return mixed
      */
-    public function getBounceRateDateRange($viewId,$dateStart,$dateEnd) {
-        return $this->getDataDateRange($viewId,$dateStart,$dateEnd,'bounceRate');
+    public function getBounceRateDateRange($viewId, $dateStart, $dateEnd)
+    {
+        return $this->getDataDateRange($viewId, $dateStart, $dateEnd, 'bounceRate');
     }
 
     /**
@@ -380,8 +404,9 @@ class GoogleAnalyticsService {
      * @param $dateEnd
      * @return mixed
      */
-    public function getAvgTimeOnPageDateRange($viewId,$dateStart,$dateEnd) {
-        return $this->getDataDateRange($viewId,$dateStart,$dateEnd,'avgTimeOnPage');
+    public function getAvgTimeOnPageDateRange($viewId, $dateStart, $dateEnd)
+    {
+        return $this->getDataDateRange($viewId, $dateStart, $dateEnd, 'avgTimeOnPage');
     }
 
     /**
@@ -390,8 +415,9 @@ class GoogleAnalyticsService {
      * @param $dateEnd
      * @return mixed
      */
-    public function getPageviewsPerSessionDateRange($viewId,$dateStart,$dateEnd) {
-        return $this->getDataDateRange($viewId,$dateStart,$dateEnd,'pageviewsPerSession');
+    public function getPageviewsPerSessionDateRange($viewId, $dateStart, $dateEnd)
+    {
+        return $this->getDataDateRange($viewId, $dateStart, $dateEnd, 'pageviewsPerSession');
     }
 
     /**
@@ -400,8 +426,9 @@ class GoogleAnalyticsService {
      * @param $dateEnd
      * @return mixed
      */
-    public function getPercentNewVisitsDateRange($viewId,$dateStart,$dateEnd) {
-        return $this->getDataDateRange($viewId,$dateStart,$dateEnd,'percentNewVisits');
+    public function getPercentNewVisitsDateRange($viewId, $dateStart, $dateEnd)
+    {
+        return $this->getDataDateRange($viewId, $dateStart, $dateEnd, 'percentNewVisits');
     }
 
     /**
@@ -410,8 +437,9 @@ class GoogleAnalyticsService {
      * @param $dateEnd
      * @return mixed
      */
-    public function getPageViewsDateRange($viewId,$dateStart,$dateEnd) {
-        return $this->getDataDateRange($viewId,$dateStart,$dateEnd,'pageviews');
+    public function getPageViewsDateRange($viewId, $dateStart, $dateEnd)
+    {
+        return $this->getDataDateRange($viewId, $dateStart, $dateEnd, 'pageviews');
     }
 
     /**
@@ -420,8 +448,9 @@ class GoogleAnalyticsService {
      * @param $dateEnd
      * @return mixed
      */
-    public function getAvgPageLoadTimeDateRange($viewId,$dateStart,$dateEnd) {
-        return $this->getDataDateRange($viewId,$dateStart,$dateEnd,'avgPageLoadTime');
+    public function getAvgPageLoadTimeDateRange($viewId, $dateStart, $dateEnd)
+    {
+        return $this->getDataDateRange($viewId, $dateStart, $dateEnd, 'avgPageLoadTime');
     }
 
 }

@@ -42,7 +42,7 @@ class GoogleAnalyticsService {
     /**
      * construct
      */
-    public function __construct($keyFileLocation) {
+    public function __construct($keyFileLocation, $httpClient = null) {
 
         if (!file_exists($keyFileLocation)) {
             throw new Exception("can't find file key location defined by google_analytics_api.google_analytics_json_key parameter, ex : ../data/analytics/analytics-key.json, defined : ".$keyFileLocation);
@@ -52,6 +52,10 @@ class GoogleAnalyticsService {
         $this->client->setApplicationName("GoogleAnalytics");
         $this->client->setScopes(['https://www.googleapis.com/auth/analytics.readonly']);
         $this->client->setAuthConfig($keyFileLocation);
+
+        if($httpClient) {
+            $this->client->setHttpClient($httpClient);
+        }
 
         $this->analytics = new Google_Service_AnalyticsReporting($this->client);
 

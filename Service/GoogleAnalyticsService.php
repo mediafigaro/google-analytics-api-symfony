@@ -97,7 +97,7 @@ class GoogleAnalyticsService {
      * @link https://github.com/google/google-api-php-client
      *
      */
-    public function getDataDateRangeMetricsDimensions($viewId,$dateStart,$dateEnd,$metrics='sessions',$dimensions=null,$sorting=null,$filterMetric=null,$filterDimension=null) {
+    public function getDataDateRangeMetricsDimensions($viewId,$dateStart,$dateEnd,$metrics='sessions',$dimensions=null,$sorting=null,$filterMetric=null,$filterDimension=null, $pageSize=null) {
 
         // Create the DateRange object
         $dateRange = new Google_Service_AnalyticsReporting_DateRange();
@@ -148,6 +148,10 @@ class GoogleAnalyticsService {
         $request = new Google_Service_AnalyticsReporting_ReportRequest();
         $request->setViewId($viewId);
         $request->setDateRanges($dateRange);
+
+        if($pageSize && is_int($pageSize)) {
+            $request->setPageSize($pageSize);
+        }
 
         // add dimensions
         if (isset($this->reportingDimensions) && is_array($this->reportingDimensions))
